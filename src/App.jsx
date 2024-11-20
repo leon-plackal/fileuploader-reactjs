@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 
-const clientId = '345917399915-k1sa5clovj9f1t7lo89iokqmbgd4mee0.apps.googleusercontent.com'; // Replace with your Google Client ID
+const clientId =  import.meta.env.VITE_GOOGLE_CLIENT_ID; // Replace with your Google Client ID
 
 function App() {
     const [token, setToken] = useState(null);
@@ -32,7 +32,8 @@ function App() {
       formData.append('file', file);
   
       try {
-          const response = await axios.post('https://localhost:7253/Files/upload', formData, {
+          const response = await axios.post( `${import.meta.env.VITE_AZURE_DEPLOY_URL}/Files/upload`
+            , formData, {
               headers: {
                   Authorization: `Bearer ${token}`,
                   'Content-Type': 'multipart/form-data'
